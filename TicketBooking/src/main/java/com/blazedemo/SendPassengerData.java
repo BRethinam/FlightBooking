@@ -2,6 +2,7 @@ package com.blazedemo;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class SendPassengerData {
 
@@ -18,4 +19,12 @@ public class SendPassengerData {
         driver.findElement(By.xpath("//input[@value='Purchase Flight']")).click();
     }
 
+    public WebElement sndPassengerChk(WebDriver driver) {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return driver.findElement(By.xpath("//input[@id='inputName']"));
+    }
 }

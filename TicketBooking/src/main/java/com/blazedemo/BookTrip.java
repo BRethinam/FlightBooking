@@ -1,5 +1,7 @@
 package com.blazedemo;
 
+import org.openqa.selenium.WebElement;
+
 public class BookTrip {
 
     public void init(String url) {
@@ -9,6 +11,11 @@ public class BookTrip {
     public void fromToCity(String fromCity, String toCity) {
         FromToCity fromToCity = new FromToCity();
         fromToCity.goTo(Browser.getDriver(), fromCity, toCity);
+    }
+
+    public WebElement findFlights(String fromCity, String toCity) {
+        FromToCity fromToCity = new FromToCity();
+        return fromToCity.findFlights(Browser.getDriver(), fromCity, toCity);
     }
 
     public void chooseFlight() {

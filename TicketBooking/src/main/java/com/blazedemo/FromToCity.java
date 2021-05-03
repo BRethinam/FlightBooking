@@ -7,16 +7,21 @@ import org.openqa.selenium.WebElement;
 public class FromToCity  {
 
     public void goTo(WebDriver driver, String fromCity, String toCity) {
-        chooseCity(driver, "fromPort", fromCity);
-        chooseCity(driver, "toPort", toCity);
-
-        WebElement submitField = driver.findElement(By.xpath("//input[@value='Find Flights']"));
+        WebElement submitField = findFlights(driver, fromCity, toCity);
         submitField.submit();
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public WebElement findFlights(WebDriver driver, String fromCity, String toCity) {
+        chooseCity(driver, "fromPort", fromCity);
+        chooseCity(driver, "toPort", toCity);
+
+        WebElement submitField = driver.findElement(By.xpath("//input[@value='Find Flights']"));
+        return submitField;
     }
 
     private void chooseCity(WebDriver driver, String port, String city) {

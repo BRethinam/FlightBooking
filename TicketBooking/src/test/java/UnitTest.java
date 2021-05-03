@@ -1,14 +1,14 @@
 
 
-import com.blazedemo.BookTrip;
-import com.blazedemo.Browser;
-import com.blazedemo.Passenger;
+import com.blazedemo.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.WebElement;
 
 import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 public class UnitTest {
     private String url;
@@ -46,8 +46,7 @@ public class UnitTest {
     }
 
     @Test
-    // Test case 1 : To test  on firefox
-    public void bookATicket() {
+    public void testBookATicket() {
         BookTrip bookTrip = new BookTrip();
         bookTrip.init(url);
         bookTrip.fromToCity(fromCity, toCity);
@@ -59,15 +58,50 @@ public class UnitTest {
         assertTrue(!confirmationId.isEmpty());
     }
 
-    // Test case 2 : To test  on Chrome
+    // Test case 2 : Check page for find flights
+    @Test
+    public void testFindFlightPage() {
+        BookTrip bookTrip = new BookTrip();
+        bookTrip.init(url);
+        WebElement findFlights = bookTrip.findFlights(fromCity, toCity);
+        String text =  findFlights.getTagName();
+        assertEquals("input", text);
+    }
 
-    // Test case 3 : To test on IE
+    // Test case 3 : Check page  for check flights
+    @Test
+    public void testChooseFlightPage() {
+        BookTrip bookTrip = new BookTrip();
+        bookTrip.init(url);
+        bookTrip.fromToCity(fromCity, toCity);
+        ChooseFlight chooseFlight = new ChooseFlight();
+        WebElement flightElement = chooseFlight.chooseFlight(Browser.getDriver());
+        String text = flightElement.getTagName();
+        assertEquals("input", text);
+    }
 
-    // Test case 4 : To test on Safari
+    // Test case 4 : Check page for passenger data
+    @Test
 
-    // Test case 5: Validate input data
+    public void testPassengerPage() {
+        BookTrip bookTrip = new BookTrip();
+        bookTrip.init(url);
+        bookTrip.fromToCity(fromCity, toCity);
+        bookTrip.chooseFlight();
+        SendPassengerData sndPassenger = new SendPassengerData();
+        WebElement passengerChk = sndPassenger.sndPassengerChk(Browser.getDriver());
+        String text = passengerChk.getTagName();
+        assertEquals("input", text);
 
-    // Test case 6: Validate navigation to the  rightful page.
+    }
+
+    // Test case 5 : To test  on Chrome
+
+    // Test case 6 : To test on IE
+
+    // Test case 7 : To test on Safari
+
+    // Test case 8: Validate input data
 
     // Test case 7: Validate corporate identity on all pages.
 
